@@ -60,7 +60,7 @@ exports[`Base64 > encode with padding 2`] = `"UKvzgA=="`;
 
 exports[`Base64 > encode with padding 3`] = `"SGVsbG8sIHdvcmxkIQ=="`;
 
-exports[`Base64 > encode with padding 4`] = `"5L2g5aW977yM8J+Mj++8gei/meaYr+S4gOS4quWkhOeQhiBCYXNlNjQg55qE5bqT44CC"`;
+exports[`Base64 > encode with padding 4`] = `"5L2g5aW977yM8J+Mj++8gei/meaYr+S4gOS4quWkhOeQhiBCYXNlNjQg55qEIEVTTSDlupPjgII="`;
 
 exports[`Base64 > encode without padding 1`] = `"Tcs"`;
 
@@ -68,4 +68,4 @@ exports[`Base64 > encode without padding 2`] = `"UKvzgA"`;
 
 exports[`Base64 > encode without padding 3`] = `"SGVsbG8sIHdvcmxkIQ"`;
 
-exports[`Base64 > encode without padding 4`] = `"5L2g5aW977yM8J+Mj++8gei/meaYr+S4gOS4quWkhOeQhiBCYXNlNjQg55qE5bqT44CC"`;
+exports[`Base64 > encode without padding 4`] = `"5L2g5aW977yM8J+Mj++8gei/meaYr+S4gOS4quWkhOeQhiBCYXNlNjQg55qEIEVTTSDlupPjgII"`;

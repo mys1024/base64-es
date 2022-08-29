@@ -14,7 +14,7 @@ describe('Base64', () => {
       Base64.encode(textEncoder.encode('Hello, world!')),
     ).toMatchSnapshot()
     expect(
-      Base64.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的库。')),
+      Base64.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。')),
     ).toMatchSnapshot()
   })
 
@@ -30,7 +30,7 @@ describe('Base64', () => {
       Base64.encode(textEncoder.encode('Hello, world!'), false),
     ).toMatchSnapshot()
     expect(
-      Base64.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的库。'), false),
+      Base64.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。'), false),
     ).toMatchSnapshot()
   })
 
