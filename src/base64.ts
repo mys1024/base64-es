@@ -1,8 +1,7 @@
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 const values: Record<string, number> = {}
-for (let i = 0; i < chars.length; i++) {
+for (let i = 0; i < chars.length; i++)
   values[chars[i]] = i
-}
 
 function encode(data: Uint8Array, padding = true): string {
   let str = ''
@@ -61,12 +60,12 @@ function decode(str: string): Uint8Array {
       case 3:
         data[offset + 2] |= val
         break
-      }
+    }
   }
   return data
 }
 
 export const Base64 = {
   encode,
-  decode
+  decode,
 }
