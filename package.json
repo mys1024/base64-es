@@ -32,9 +32,11 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "test": "vitest"
+    "test:unit": "vitest",
+    "test:coverage": "vitest --coverage"
   },
   "devDependencies": {
+    "@vitest/coverage-c8": "^0.22.1",
     "unbuild": "^0.8.9",
     "vitest": "^0.22.1"
   }
