@@ -1,0 +1,71 @@
+// Vitest Snapshot v1
+
+exports[`Base64 > decode with padding 1`] = `
+Uint8Array [
+  80,
+  171,
+  243,
+  128,
+]
+`;
+
+exports[`Base64 > decode with padding 2`] = `
+Uint8Array [
+  72,
+  101,
+  108,
+  108,
+  111,
+  44,
+  32,
+  119,
+  111,
+  114,
+  108,
+  100,
+  33,
+]
+`;
+
+exports[`Base64 > decode without padding 1`] = `
+Uint8Array [
+  80,
+  171,
+  243,
+  128,
+]
+`;
+
+exports[`Base64 > decode without padding 2`] = `
+Uint8Array [
+  72,
+  101,
+  108,
+  108,
+  111,
+  44,
+  32,
+  119,
+  111,
+  114,
+  108,
+  100,
+  33,
+]
+`;
+
+exports[`Base64 > encode with padding 1`] = `"Tcs="`;
+
+exports[`Base64 > encode with padding 2`] = `"UKvzgA=="`;
+
+exports[`Base64 > encode with padding 3`] = `"SGVsbG8sIHdvcmxkIQ=="`;
+
+exports[`Base64 > encode with padding 4`] = `"5L2g5aW977yM8J+Mj++8gei/meaYr+S4gOS4quWkhOeQhiBCYXNlNjQg55qE5bqT44CC"`;
+
+exports[`Base64 > encode without padding 1`] = `"Tcs"`;
+
+exports[`Base64 > encode without padding 2`] = `"UKvzgA"`;
+
+exports[`Base64 > encode without padding 3`] = `"SGVsbG8sIHdvcmxkIQ"`;
+
+exports[`Base64 > encode without padding 4`] = `"5L2g5aW977yM8J+Mj++8gei/meaYr+S4gOS4quWkhOeQhiBCYXNlNjQg55qE5bqT44CC"`;
