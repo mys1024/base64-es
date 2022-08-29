@@ -6,13 +6,13 @@
   "description": "A Base64 library written in ESM.",
   "author": "mys1024",
   "license": "MIT",
-  "homepage": "https://github.com/mys1024/base64-es",
+  "homepage": "https://github.com/mys1024/base64-esm",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mys1024/base64-es"
+    "url": "https://github.com/mys1024/base64-esm"
   },
   "bugs": {
-    "url": "https://github.com/mys1024/base64-es/issues"
+    "url": "https://github.com/mys1024/base64-esm/issues"
   },
   "keywords": [
     "base64",

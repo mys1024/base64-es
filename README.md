@@ -1,4 +1,4 @@
-# base64-es
+# base64-esm
 
 A Base64 library written in ESM.
 
@@ -7,7 +7,7 @@ A Base64 library written in ESM.
 ### Base64
 
 ```typescript
-import { Base64 } from 'base64-es'
+import { Base64 } from 'base64-esm'
 
 const textEncoder = new TextEncoder()
 const base64 = Base64.encode(textEncoder.encode('Hello, world!'))
@@ -21,7 +21,7 @@ console.log(text) // Hello, world!
 ### Base64Url
 
 ```typescript
-import { Base64Url } from 'base64-es'
+import { Base64Url } from 'base64-esm'
 
 const textEncoder = new TextEncoder()
 const base64url = Base64Url.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。'))
