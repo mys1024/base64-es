@@ -1,6 +1,6 @@
 # base64-es
 
-A Base64 library in ES Module.
+A Base64 library written in ESM.
 
 ## Usage
 
@@ -24,11 +24,11 @@ console.log(text) // Hello, world!
 import { Base64Url } from 'base64-es'
 
 const textEncoder = new TextEncoder()
-const base64url = Base64.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。'))
+const base64url = Base64Url.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。'))
 console.log(base64url) // 5L2g5aW977yM8J-Mj--8gei_meaYr-S4gOS4quWkhOeQhiBCYXNlNjQg55qEIEVTTSDlupPjgII
 
 const textDecoder = new TextDecoder()
-const text = textDecoder.decode(Base64.decode(base64url))
+const text = textDecoder.decode(Base64Url.decode(base64url))
 console.log(text) // 你好，🌏！这是一个处理 Base64 的 ESM 库。
 ```
 
