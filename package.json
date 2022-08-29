@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "A Base64 package in ES Module.",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc"
   },
