@@ -2,10 +2,31 @@
   "name": "base64-es",
   "type": "module",
   "version": "0.0.0",
+  "packageManager": "pnpm@7.9.5",
   "description": "A Base64 package in ES Module.",
   "author": "mys1024",
   "license": "MIT",
+  "homepage": "https://github.com/mys1024/base64-es",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mys1024/base64-es"
+  },
+  "bugs": {
+    "url": "https://github.com/mys1024/base64-es/issues"
+  },
+  "keywords": [
+    "Base64",
+    "Base64Url",
+    "Base64URL",
+    "esm"
+  ],
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "vitest",
