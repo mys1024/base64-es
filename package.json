@@ -40,7 +40,7 @@
     "test": "vitest run",
     "test:dev": "vitest",
     "test:cover": "vitest --coverage",
-    "publish": "pnpm test && pnpm build && pnpm publish"
+    "pub": "pnpm test && pnpm build && pnpm publish"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "^0.22.1",
