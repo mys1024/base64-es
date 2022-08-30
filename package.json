@@ -32,9 +32,10 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "test:unit": "vitest",
-    "test:coverage": "vitest --coverage",
-    "publish": "pnpm build && pnpm publish"
+    "test": "vitest run",
+    "test:dev": "vitest",
+    "test:cover": "vitest --coverage",
+    "publish": "pnpm test && pnpm build && pnpm publish"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "^0.22.1",
