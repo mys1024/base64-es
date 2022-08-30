@@ -41,7 +41,7 @@ describe.concurrent('base64 encoding', () => {
 describe.concurrent('base64 decoding', () => {
   it('decode with padding', () => {
     expect(
-      Base64.decode('UKvzgA=='),
+      Base64.decode('SGVsbG8sIHdvcmxkIQ=='),
     ).toEqual(new Uint8Array([80, 171, 243, 128]))
     expect(
       Base64.decodeToString('SGVsbG8sIHdvcmxkIQ=='),
