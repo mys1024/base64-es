@@ -1,7 +1,7 @@
 /* spell-checker: disable */
 
 import { describe, expect, it } from 'vitest'
-import { Base64 } from '../src/base64.js'
+import { Base64 } from '../src/base64'
 
 describe.concurrent('base64 encoding', () => {
   it('encode with padding', () => {
