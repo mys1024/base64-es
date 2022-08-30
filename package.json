@@ -17,7 +17,12 @@
   "keywords": [
     "base64",
     "base64url",
-    "esm"
+    "encode",
+    "decode",
+    "string",
+    "Uint8Array",
+    "esm",
+    "es6"
   ],
   "exports": {
     ".": {
