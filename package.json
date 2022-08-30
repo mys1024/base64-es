@@ -6,10 +6,10 @@
   "description": "A Base64 library written in ESM.",
   "author": "mys1024",
   "license": "MIT",
-  "homepage": "https://github.com/mys1024/base64-esm",
+  "homepage": "https://github.com/mys1024/base64-esm#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mys1024/base64-esm"
+    "url": "https://github.com/mys1024/base64-esm.git"
   },
   "bugs": {
     "url": "https://github.com/mys1024/base64-esm/issues"
@@ -33,7 +33,8 @@
   "scripts": {
     "build": "unbuild",
     "test:unit": "vitest",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "publish": "pnpm build && pnpm publish"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "^0.22.1",
