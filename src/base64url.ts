@@ -8,47 +8,47 @@ for (let i = 0; i < chars.length; i++)
 function encode(data: string | Uint8Array, padding = false): string {
   if (typeof data === 'string')
     data = textEncoder.encode(data)
-  let str = ''
+  let b64url = ''
   let tmp = 0
   for (let i = 0; i < data.length; i++) {
     switch (i % 3) {
       case 0:
-        str += chars[(data[i] & 0b11111100) >> 2]
+        b64url += chars[(data[i] & 0b11111100) >> 2]
         tmp = (data[i] & 0b00000011) << 4
         break
       case 1:
-        str += chars[tmp | ((data[i] & 0b11110000) >> 4)]
+        b64url += chars[tmp | ((data[i] & 0b11110000) >> 4)]
         tmp = (data[i] & 0b00001111) << 2
         break
       case 2:
-        str += chars[tmp | ((data[i] & 0b11000000) >> 6)]
-        str += chars[(data[i] & 0b00111111)]
+        b64url += chars[tmp | ((data[i] & 0b11000000) >> 6)]
+        b64url += chars[(data[i] & 0b00111111)]
         tmp = 0
         break
     }
   }
   switch (data.length % 3) {
     case 1:
-      str += chars[tmp]
+      b64url += chars[tmp]
       if (padding)
-        str += '=='
+        b64url += '=='
       break
     case 2:
-      str += chars[tmp]
+      b64url += chars[tmp]
       if (padding)
-        str += '='
+        b64url += '='
       break
   }
-  return str
+  return b64url
 }
 
-function decode(str: string): Uint8Array {
-  const charCount = str.length - (str.endsWith('==') ? 2 : str.endsWith('=') ? 1 : 0)
+function decode(b64url: string): Uint8Array {
+  const charCount = b64url.length - (b64url.endsWith('==') ? 2 : b64url.endsWith('=') ? 1 : 0)
   const byteCount = Math.ceil(charCount * 6 / 8) - (charCount % 4 === 0 ? 0 : 1)
   const data = new Uint8Array(byteCount)
   for (let i = 0; i < charCount; i++) {
     const offset = Math.floor(i / 4) * 3
-    const val = values[str[i]]
+    const val = values[b64url[i]]
     switch (i % 4) {
       case 0:
         data[offset + 0] |= val << 2
@@ -69,8 +69,8 @@ function decode(str: string): Uint8Array {
   return data
 }
 
-function decodeToString(str: string): string {
-  return textDecoder.decode(decode(str))
+function decodeToString(b64url: string): string {
+  return textDecoder.decode(decode(b64url))
 }
 
 export const Base64Url = {
