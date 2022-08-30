@@ -1,56 +1,61 @@
+/* spell-checker: disable */
+
 import { describe, expect, it } from 'vitest'
 import { Base64 } from '../src/base64.js'
 
-describe('Base64', () => {
+const textEncoder = new TextEncoder()
+
+describe.concurrent('base64 encoding', () => {
   it('encode with padding', () => {
-    const textEncoder = new TextEncoder()
+    expect(
+      Base64.encode(new Uint8Array([22])),
+    ).toBe('Fg==')
     expect(
       Base64.encode(new Uint8Array([77, 203])),
-    ).toMatchSnapshot()
+    ).toBe('Tcs=')
+    expect(
+      Base64.encode(new Uint8Array([79, 2, 229])),
+    ).toBe('TwLl')
     expect(
       Base64.encode(new Uint8Array([80, 171, 243, 128])),
-    ).toMatchSnapshot()
+    ).toBe('UKvzgA==')
     expect(
       Base64.encode(textEncoder.encode('Hello, world!')),
-    ).toMatchSnapshot()
+    ).toBe('SGVsbG8sIHdvcmxkIQ==')
     expect(
       Base64.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。')),
-    ).toMatchSnapshot()
+    ).toBe('5L2g5aW977yM8J+Mj++8gei/meaYr+S4gOS4quWkhOeQhiBCYXNlNjQg55qEIEVTTSDlupPjgII=')
   })
 
   it('encode without padding', () => {
-    const textEncoder = new TextEncoder()
     expect(
-      Base64.encode(new Uint8Array([77, 203]), false),
-    ).toMatchSnapshot()
+      Base64.encode(new Uint8Array([22]), false),
+    ).toBe('Fg')
     expect(
       Base64.encode(new Uint8Array([80, 171, 243, 128]), false),
-    ).toMatchSnapshot()
+    ).toBe('UKvzgA')
     expect(
       Base64.encode(textEncoder.encode('Hello, world!'), false),
-    ).toMatchSnapshot()
-    expect(
-      Base64.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。'), false),
-    ).toMatchSnapshot()
+    ).toBe('SGVsbG8sIHdvcmxkIQ')
   })
+})
 
+describe.concurrent('base64 decoding', () => {
   it('decode with padding', () => {
-    const textEncoder = new TextEncoder()
     expect(
-      Base64.decode(Base64.encode(new Uint8Array([80, 171, 243, 128]))),
-    ).toMatchSnapshot()
+      Base64.decode('UKvzgA=='),
+    ).toEqual(new Uint8Array([80, 171, 243, 128]))
     expect(
-      Base64.decode(Base64.encode(textEncoder.encode('Hello, world!'))),
-    ).toMatchSnapshot()
+      Base64.decode('SGVsbG8sIHdvcmxkIQ=='),
+    ).toEqual(textEncoder.encode('Hello, world!'))
   })
 
   it('decode without padding', () => {
-    const textEncoder = new TextEncoder()
     expect(
-      Base64.decode(Base64.encode(new Uint8Array([80, 171, 243, 128]), false)),
-    ).toMatchSnapshot()
+      Base64.decode('UKvzgA'),
+    ).toEqual(new Uint8Array([80, 171, 243, 128]))
     expect(
-      Base64.decode(Base64.encode(textEncoder.encode('Hello, world!'), false)),
-    ).toMatchSnapshot()
+      Base64.decode('SGVsbG8sIHdvcmxkIQ'),
+    ).toEqual(textEncoder.encode('Hello, world!'))
   })
 })
