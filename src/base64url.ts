@@ -1,9 +1,13 @@
+import { textDecoder, textEncoder } from "./basic"
+
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'
 const values: Record<string, number> = {}
 for (let i = 0; i < chars.length; i++)
   values[chars[i]] = i
 
-function encode(data: Uint8Array, padding = false): string {
+function encode(data: string | Uint8Array, padding = false): string {
+  if (typeof data === 'string')
+    data = textEncoder.encode(data)
   let str = ''
   let tmp = 0
   for (let i = 0; i < data.length; i++) {
@@ -65,7 +69,12 @@ function decode(str: string): Uint8Array {
   return data
 }
 
+function decodeToString(str: string): string {
+  return textDecoder.decode(decode(str))
+}
+
 export const Base64Url = {
   encode,
   decode,
+  decodeToString,
 }

@@ -3,8 +3,6 @@
 import { describe, expect, it } from 'vitest'
 import { Base64Url } from '../src/base64url.js'
 
-const textEncoder = new TextEncoder()
-
 describe.concurrent('base64url encoding', () => {
   it('encode without padding', () => {
     expect(
@@ -20,10 +18,10 @@ describe.concurrent('base64url encoding', () => {
       Base64Url.encode(new Uint8Array([80, 171, 243, 128])),
     ).toBe('UKvzgA')
     expect(
-      Base64Url.encode(textEncoder.encode('Hello, world!')),
+      Base64Url.encode('Hello, world!'),
     ).toBe('SGVsbG8sIHdvcmxkIQ')
     expect(
-      Base64Url.encode(textEncoder.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。')),
+      Base64Url.encode('你好，🌏！这是一个处理 Base64 的 ESM 库。'),
     ).toBe('5L2g5aW977yM8J-Mj--8gei_meaYr-S4gOS4quWkhOeQhiBCYXNlNjQg55qEIEVTTSDlupPjgII')
   })
 
@@ -35,7 +33,7 @@ describe.concurrent('base64url encoding', () => {
       Base64Url.encode(new Uint8Array([80, 171, 243, 128]), true),
     ).toBe('UKvzgA==')
     expect(
-      Base64Url.encode(textEncoder.encode('Hello, world!'), true),
+      Base64Url.encode('Hello, world!', true),
     ).toBe('SGVsbG8sIHdvcmxkIQ==')
   })
 })
@@ -46,8 +44,8 @@ describe.concurrent('base64url decoding', () => {
       Base64Url.decode('UKvzgA'),
     ).toEqual(new Uint8Array([80, 171, 243, 128]))
     expect(
-      Base64Url.decode('SGVsbG8sIHdvcmxkIQ'),
-    ).toEqual(textEncoder.encode('Hello, world!'))
+      Base64Url.decodeToString('SGVsbG8sIHdvcmxkIQ'),
+    ).toEqual('Hello, world!')
   })
 
   it('decode with padding', () => {
@@ -55,7 +53,7 @@ describe.concurrent('base64url decoding', () => {
       Base64Url.decode('UKvzgA=='),
     ).toEqual(new Uint8Array([80, 171, 243, 128]))
     expect(
-      Base64Url.decode('SGVsbG8sIHdvcmxkIQ=='),
-    ).toEqual(textEncoder.encode('Hello, world!'))
+      Base64Url.decodeToString('SGVsbG8sIHdvcmxkIQ=='),
+    ).toEqual('Hello, world!')
   })
 })
