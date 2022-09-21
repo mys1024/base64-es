@@ -37,13 +37,17 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "test": "vitest run",
-    "test:dev": "vitest",
+    "test": "vitest",
     "test:cover": "vitest --coverage",
-    "release": "pnpm test && pnpm build && pnpm publish"
+    "test:bench": "vitest bench",
+    "release": "vitest run && pnpm build && pnpm publish"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
     "@vitest/coverage-c8": "^0.23.4",
+    "base64-js": "^1.5.1",
+    "crypto-js": "^4.1.1",
+    "js-base64": "^3.7.2",
     "unbuild": "^0.8.11",
     "vitest": "^0.23.4"
   }
