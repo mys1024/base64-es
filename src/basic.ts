@@ -1,74 +1,107 @@
 const textEncoder = new TextEncoder()
 const textDecoder = new TextDecoder()
 
-const b64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-const b64urlChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'
+const values = new Uint8Array(128)
 
-let values: Record<string, number> | undefined = undefined
+const b64Chars = new Uint8Array(64)
+// 'A' to 'Z'
+for (let char = 65; char <= 90; char++) {
+  const value = char - 65
+  b64Chars[value] = char
+  values[char] = value
+}
+// 'a' to 'z'
+for (let char = 97; char <= 122; char++) {
+  const value = char - 97 + 26
+  b64Chars[value] = char
+  values[char] = value
+}
+// '0' to '9'
+for (let char = 48; char <= 57; char++) {
+  const value = char - 48 + 52
+  b64Chars[value] = char
+  values[char] = value
+}
+// '+' and '/'
+b64Chars[62] = 43
+b64Chars[63] = 47
+values[43] = 62
+values[47] = 63
 
-function createValues() {
-  const values: Record<string, number> = {}
-  for (let i = 0; i < b64Chars.length; i++) {
-    values[b64Chars[i]] = i
+const b64urlChars = new Uint8Array(b64Chars)
+// '-' and '_'
+b64urlChars[62] = 45
+b64urlChars[63] = 95
+values[45] = 62
+values[95] = 63
+
+function b64Length(byteCount: number, padding: boolean): number {
+  let len = Math.ceil(byteCount / 3) * 4
+  if (!padding) {
+    switch (byteCount % 3) {
+      case 1:
+        len -= 2
+        break
+      case 2:
+        len -= 1
+    }
   }
-  values['-'] = 62
-  values['_'] = 63
-  return values
+  return len
 }
 
 export function encode(data: string | Uint8Array, url: boolean, padding: boolean): string {
   if (typeof data === 'string')
     data = textEncoder.encode(data)
   const chars = url ? b64urlChars : b64Chars
-  let b64 = ''
+  const byteCount = data.length
+  const b64Buffer = new Uint8Array(b64Length(byteCount, padding))
+  let bi = 0
   let tmp = 0
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < byteCount; i++) {
     switch (i % 3) {
       case 0:
-        b64 += chars[(data[i] & 0b11111100) >> 2]
+        b64Buffer[bi++] = chars[(data[i] & 0b11111100) >> 2]
         tmp = (data[i] & 0b00000011) << 4
         break
       case 1:
-        b64 += chars[tmp | ((data[i] & 0b11110000) >> 4)]
+        b64Buffer[bi++] = chars[tmp | ((data[i] & 0b11110000) >> 4)]
         tmp = (data[i] & 0b00001111) << 2
         break
       case 2:
-        b64 += chars[tmp | ((data[i] & 0b11000000) >> 6)]
-        b64 += chars[(data[i] & 0b00111111)]
-        tmp = 0
-        break
+        b64Buffer[bi++] = chars[tmp | ((data[i] & 0b11000000) >> 6)]
+        b64Buffer[bi++] = chars[(data[i] & 0b00111111)]
     }
   }
-  switch (data.length % 3) {
+  switch (byteCount % 3) {
     case 1:
-      b64 += chars[tmp]
-      if (padding)
-        b64 += '=='
+      b64Buffer[bi++] = chars[tmp]
+      if (padding) {
+        b64Buffer[bi++] = 61
+        b64Buffer[bi++] = 61
+      }
       break
     case 2:
-      b64 += chars[tmp]
+      b64Buffer[bi++] = chars[tmp]
       if (padding)
-        b64 += '='
-      break
+        b64Buffer[bi++] = 61
   }
-  return b64
+  return textDecoder.decode(b64Buffer)
 }
 
 export function decode(b64: string): Uint8Array {
   const charCount = b64.length - (b64.endsWith('==') ? 2 : b64.endsWith('=') ? 1 : 0)
   const byteCount = Math.ceil(charCount * 6 / 8) - (charCount % 4 === 0 ? 0 : 1)
   const data = new Uint8Array(byteCount)
-  if (!values)
-    values = createValues()
+  const b64Buffer = textEncoder.encode(b64)
   for (let i = 0; i < charCount; i++) {
     const offset = Math.floor(i / 4) * 3
-    const val = values[b64[i]]
+    const val = values[b64Buffer[i]]
     switch (i % 4) {
       case 0:
-        data[offset + 0] |= val << 2
+        data[offset] |= val << 2
         break
       case 1:
-        data[offset + 0] |= val >> 4
+        data[offset] |= val >> 4
         data[offset + 1] |= val << 4
         break
       case 2:
@@ -77,7 +110,6 @@ export function decode(b64: string): Uint8Array {
         break
       case 3:
         data[offset + 2] |= val
-        break
     }
   }
   return data
