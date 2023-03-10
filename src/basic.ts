@@ -115,6 +115,6 @@ export function decode(b64: string): Uint8Array {
   return data
 }
 
-export function decodeToString(b64: string): string {
+export function decodeToStr(b64: string): string {
   return textDecoder.decode(decode(b64))
 }

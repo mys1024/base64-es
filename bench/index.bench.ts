@@ -1,7 +1,7 @@
 import { bench, describe } from 'vitest'
-import { Base64 } from '../src/base64'
+import { base64Decode, base64Encode } from '../src/base64'
 import Base64Js from 'base64-js'
-import { Base64 as JsBase64} from 'js-base64'
+import { Base64 as JsBase64 } from 'js-base64'
 import CryptoJs from 'crypto-js'
 
 function createTestData(length: number) {
@@ -13,11 +13,11 @@ function createTestData(length: number) {
 
 const data = createTestData(1024 * 1024) // 1MB
 const dataWA = CryptoJs.lib.WordArray.create(Array.from(data))
-const b64 = Base64.encode(data)
+const b64 = base64Encode(data)
 
 describe('encode', () => {
   bench('base64-esm', () => {
-    Base64.encode(data)
+    base64Encode(data)
   })
 
   bench('base64-js', () => {
@@ -35,7 +35,7 @@ describe('encode', () => {
 
 describe('decode', () => {
   bench('base64-esm', () => {
-    Base64.decode(b64)
+    base64Decode(b64)
   })
 
   bench('base64-js', () => {
